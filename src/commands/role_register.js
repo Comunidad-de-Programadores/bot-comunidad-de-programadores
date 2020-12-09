@@ -15,5 +15,7 @@ module.exports = {
     db.push(object)
 
     fs.writeFileSync(path.join(path.dirname(path.dirname(__dirname)), "db/roles.json"), JSON.stringify(db))
+
+    
   },
 }
