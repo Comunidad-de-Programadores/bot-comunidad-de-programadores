@@ -1,3 +1,8 @@
+const Discord = require("discord.js")
+const fs = require("fs")
+const path = require("path")
+const config = require("../config.json")
+
 module.exports = {
   name: "setup",
   description: "setup inicial",
@@ -14,8 +19,19 @@ module.exports = {
           deny: ["SEND_MESSAGES"]
         }
       ]
-    }).then(message.channel.send("Canal creado con exito!"))
+    }).then(ch => {
+      config.role_channel = ch.id
+      fs.writeFileSync(path.join(path.dirname(__dirname), "config.json"), JSON.stringify(config, null, 2))
+
+      const embed = new Discord.MessageEmbed()
+        .setTitle("Asignacion de roles")
+        .setDescription("Escoja los lenguajes o tecnologias de su preferencia reaccionando a los emojis")
+
+      ch.send(embed)
+
+      message.channel.send("Canal creado con exito!")
+    })
       .catch(console.error)
 
-  },
+  }
 }
