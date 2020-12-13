@@ -74,7 +74,7 @@ fs.readdir("./src/events/", (err, files) => {
 
     try {
       emitter[once ? "once" : "on"](event, (...args) =>
-        eventFunction.run(...args)
+        eventFunction.run(...args, client)
       )
     } catch (error) {
       console.error(error.stack)

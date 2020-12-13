@@ -22,8 +22,16 @@ module.exports = {
     const { role_channel } = require("../config.json")
     const channel = message.guild.channels.cache.get(role_channel)
 
-    channel.messages
-      .fetch(channel.lastMessageID)
-      .then((msg) => msg.react(args[1]))
+    try {
+      channel.messages
+        .fetch(channel.lastMessageID)
+        .then((msg) => msg.react(args[1]))
+    } catch (e) {
+      if (e instanceof TypeError) {
+        message.reply(
+          "El rol ha sido añadido a la base de datos, pero recuerde ejecutar el comando !setup para poder enviar el mensaje con la asignacion de roles"
+        )
+      }
+    }
   },
 }
