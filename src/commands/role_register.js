@@ -9,19 +9,21 @@ module.exports = {
   usage: "<nombre del rol> <emoji del rol>",
   execute(message, args) {
     let object = {
-      role : args[0],
-      emoji : args[1]
+      role: args[0],
+      emoji: args[1],
     }
     db.push(object)
-    
-    fs.writeFileSync(path.join(path.dirname(path.dirname(__dirname)), "db/roles.json"), JSON.stringify(db, null, 2))
 
-    
+    fs.writeFileSync(
+      path.join(path.dirname(path.dirname(__dirname)), "db/roles.json"),
+      JSON.stringify(db, null, 2)
+    )
+
     const { role_channel } = require("../config.json")
-    const channel = (message.guild.channels.cache.get(role_channel))
-    //console.log(channel)
-    channel.messages.fetch("786617180606955551")
-      .then(msg => msg.react(args[1]))
-    
+    const channel = message.guild.channels.cache.get(role_channel)
+
+    channel.messages
+      .fetch(channel.lastMessageID)
+      .then((msg) => msg.react(args[1]))
   },
 }
