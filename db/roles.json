@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "role": "javascript",
+    "emoji": "🇯"
+  },
+  {
+    "role": "python",
+    "emoji": "🅿️"
+  },
+  {
+    "role": "C",
+    "emoji": "🇨"
+  },
+  {
+    "role": "a",
+    "emoji": "a"
+  },
+  {
+    "role": "a",
+    "emoji": "a"
+  },
+  {
+    "role": "a",
+    "emoji": "a"
+  },
+  {
+    "role": "c++",
+    "emoji": "➕"
+  }
+]
