@@ -8,6 +8,7 @@ module.exports = {
   name: "setup",
   description: "setup inicial",
   args: "0",
+  admin: true,
   usage: "",
   execute(message) {
     //creacion canal roles

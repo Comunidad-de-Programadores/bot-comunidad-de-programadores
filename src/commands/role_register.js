@@ -7,6 +7,7 @@ module.exports = {
   name: "set_role",
   description: "registrar nuevo rol",
   args: "2",
+  admin: true,
   usage: "<nombre del rol> <emoji del rol>",
   execute(message, args) {
     let object = {

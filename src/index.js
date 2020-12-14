@@ -8,9 +8,7 @@ const fs = require("fs")
 
 const checkArgs = require("./functions/check_args")
 
-const commandFiles = fs
-  .readdirSync(path.join(__dirname, "./commands"))
-  .filter((file) => file.endsWith(".js"))
+const commandFiles = fs.readdirSync(path.join(__dirname, "./commands")).filter((file) => file.endsWith(".js"))
 
 for (const file of commandFiles) {
   const command = require(path.join(__dirname, `./commands/${file}`))
@@ -23,16 +21,9 @@ client.on("ready", () => {
 })
 
 client.on("message", (message) => {
-  if (
-    message.author == client ||
-    !message.content.startsWith(process.env.PREFIX)
-  )
-    return
+  if (message.author == client || !message.content.startsWith(process.env.PREFIX)) return
 
-  const args = message.content
-    .slice(process.env.PREFIX.length)
-    .trim()
-    .split(" ")
+  const args = message.content.slice(process.env.PREFIX.length).trim().split(" ")
   const commandName = args.shift()
 
   if (!client.commands.has(commandName)) {
@@ -42,11 +33,20 @@ client.on("message", (message) => {
 
   const command = client.commands.get(commandName)
 
-  if (!checkArgs(command.args, args.length)) {
-    message.reply(
-      `Comando invalido\nEl uso correcto de este comando es: \`${process.env.PREFIX}${command.name} ${command.usage}\``
-    )
-    return
+  if (command.admin) {
+    if (message.channel.id != "775926844175155201") {
+      message.reply("no puede utilizar este comando")
+      return
+    }
+  }
+
+  if (command.args) {
+    if (!checkArgs(command.args, args.length)) {
+      message.reply(
+        `Comando invalido\nEl uso correcto de este comando es: \`${process.env.PREFIX}${command.name} ${command.usage}\``
+      )
+      return
+    }
   }
 
   try {
@@ -66,16 +66,13 @@ fs.readdir("./src/events/", (err, files) => {
 
     const event = eventFunction.event || file.split(".")[0]
     const emitter =
-      (typeof eventFunction.emitter === "string"
-        ? client[eventFunction.emitter]
-        : eventFunction.emitter) || client
+      (typeof eventFunction.emitter === "string" ? client[eventFunction.emitter] : eventFunction.emitter) ||
+      client
 
     const once = eventFunction.once
 
     try {
-      emitter[once ? "once" : "on"](event, (...args) =>
-        eventFunction.run(...args, client)
-      )
+      emitter[once ? "once" : "on"](event, (...args) => eventFunction.run(...args, client))
     } catch (error) {
       console.error(error.stack)
     }
