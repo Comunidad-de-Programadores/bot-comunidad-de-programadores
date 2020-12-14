@@ -25,8 +25,7 @@ module.exports = {
     const channel = message.guild.channels.cache.get(role_channel)
 
     try {
-      const emoji = db.find((role) => role.role == args[0])
-      channel.messages.fetch(channel.lastMessageID).then((msg) => msg.react(emoji.emoji))
+      channel.messages.fetch(channel.lastMessageID).then((msg) => msg.react(args[1]))
     } catch (e) {
       if (e instanceof TypeError) {
         message.reply(
