@@ -8,14 +8,18 @@ module.exports = {
 
     if (messageReaction.message.channel.id != role_channel) return
 
+    //al usar el comando set role con un emoji custom, el nombre del rol debe ser el mismo que el alias del emoji
     let is_registered = false
     db.forEach((role) => {
-      if (role.emoji == messageReaction._emoji.name) is_registered = true
+      if (role.emoji == messageReaction._emoji.name || role.role == messageReaction._emoji.name)
+        is_registered = true
     })
 
     if (!is_registered) messageReaction.remove()
 
-    const db_role = db.find((role) => role.emoji == messageReaction._emoji.name)
+    const db_role =
+      db.find((role) => role.emoji == messageReaction._emoji.name) ||
+      db.find((role) => role.role == messageReaction._emoji.name)
 
     if (messageReaction.message.guild.roles.cache.find((role) => role.name == db_role.role) == undefined) {
       await messageReaction.message.guild.roles.create({
