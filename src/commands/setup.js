@@ -14,26 +14,21 @@ module.exports = {
     message.guild.channels
       .create("roles", {
         type: "text",
-        parent: "786269301577089075",
+        parent: "775907617595719750",
         permissionOverwrites: [
           {
-            id: "785860569746898972",
+            id: "775907616986890261",
             deny: ["SEND_MESSAGES"],
           },
         ],
       })
       .then((ch) => {
         config.role_channel = ch.id
-        fs.writeFileSync(
-          path.join(path.dirname(__dirname), "config.json"),
-          JSON.stringify(config, null, 2)
-        )
+        fs.writeFileSync(path.join(path.dirname(__dirname), "config.json"), JSON.stringify(config, null, 2))
 
         const embed = new Discord.MessageEmbed()
           .setTitle("Asignacion de roles")
-          .setDescription(
-            "Escoja los lenguajes o tecnologias de su preferencia reaccionando a los emojis"
-          )
+          .setDescription("Escoja los lenguajes o tecnologias de su preferencia reaccionando a los emojis")
 
         ch.send(embed).then((msg) => {
           db.forEach((role) => {
