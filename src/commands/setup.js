@@ -29,7 +29,9 @@ module.exports = {
 
         const embed = new Discord.MessageEmbed()
           .setTitle("Asignacion de roles")
-          .setDescription("Escoja los lenguajes o tecnologias de su preferencia reaccionando a los emojis")
+          .setDescription(
+            "Reaccione a los emojis, para obtener los roles respectivos.\n1 - Frontend developer\n2 - Backend developer\n3 - UI / UX designer\n4 - Game developer\n5 - Mobile developer\n6 - Database developer"
+          )
 
         ch.send(embed).then((msg) => {
           db.forEach((role) => {
