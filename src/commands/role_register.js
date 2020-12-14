@@ -25,11 +25,12 @@ module.exports = {
     const channel = message.guild.channels.cache.get(role_channel)
 
     try {
-      channel.messages.fetch(channel.lastMessageID).then((msg) => msg.react(args[1]))
+      const emoji = db.find((role) => role.role == args[0])
+      channel.messages.fetch(channel.lastMessageID).then((msg) => msg.react(emoji.emoji))
     } catch (e) {
       if (e instanceof TypeError) {
         message.reply(
-          "El rol ha sido añadido a la base de datos, pero recuerde ejecutar el comando !setup para poder enviar el mensaje con la asignacion de roles"
+          "El rol ha sido añadido, ejecute el comando !!setup para poder enviar el mensaje con la asignacion de roles"
         )
       } else if (e instanceof DiscordAPIError) {
         message.reply(
