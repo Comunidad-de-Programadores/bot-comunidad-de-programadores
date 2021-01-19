@@ -43,6 +43,8 @@ const pollEmbed = async (
   const poll = await msg.channel.send(embedBuilder(title, msg.author.tag).setDescription(text))
   for (const emoji of usedEmojis) await poll.react(emoji)
 
+  msg.delete()
+
   const reactionCollector = poll.createReactionCollector(
     (reaction, user) => usedEmojis.includes(reaction.emoji.name) && !user.bot,
     {}
@@ -82,7 +84,9 @@ const pollEmbed = async (
 }
 
 const embedBuilder = (title, author) => {
-  return new MessageEmbed().setTitle(`Poll - ${title}`).setFooter(`Poll created by ${author}`)
+  return new MessageEmbed()
+    .setTitle(`Encuesta - ${title}`)
+    .setFooter(`Encuesta creada por ${author}`)
 }
 
 module.exports = {
