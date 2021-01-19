@@ -6,7 +6,9 @@ const client = new Discord.Client()
 client.commands = new Discord.Collection()
 const fs = require("fs")
 
-const commandFiles = fs.readdirSync(path.join(__dirname, "./commands")).filter((file) => file.endsWith(".js"))
+const commandFiles = fs
+  .readdirSync(path.join(__dirname, "./commands"))
+  .filter(file => file.endsWith(".js"))
 
 for (const file of commandFiles) {
   const command = require(path.join(__dirname, `./commands/${file}`))
@@ -18,19 +20,18 @@ client.on("ready", () => {
   console.log("Bot listo!")
 })
 
-client.on("message", (message) => {})
-
 fs.readdir("./src/events/", (err, files) => {
   if (err) return console.error(err)
 
-  files.forEach((file) => {
+  files.forEach(file => {
     const eventFunction = require(`./events/${file}`)
     if (eventFunction.disabled) return
 
     const event = eventFunction.event || file.split(".")[0]
     const emitter =
-      (typeof eventFunction.emitter === "string" ? client[eventFunction.emitter] : eventFunction.emitter) ||
-      client
+      (typeof eventFunction.emitter === "string"
+        ? client[eventFunction.emitter]
+        : eventFunction.emitter) || client
 
     const once = eventFunction.once
 

@@ -27,9 +27,11 @@ module.exports = {
     }
 
     if (command.admin) {
-      if (message.channel.id != "788072130310438963") {
-        message.reply("no puede utilizar este comando")
-        return
+      const member = message.channel.guild.member(message.author)
+      const permission = member.permissions.has("MANAGE_CHANNELS")
+
+      if (!permission) {
+        return message.reply("No tienes permiso para usar este comando")
       }
     }
 
