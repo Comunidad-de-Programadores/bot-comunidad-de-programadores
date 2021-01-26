@@ -13,6 +13,6 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.8.9 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "bot-comunidad-de-programadores" #Must be unique in Heroku
-          heroku_email: "juanzpjose136@gmail.com"
+          heroku_app_name: "comunidad-de-programadores-bot" #Must be unique in Heroku
+          heroku_email: "deividelpaisa@hotmail.com"
           branch: "master"
