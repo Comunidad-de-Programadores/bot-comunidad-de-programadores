@@ -5,7 +5,7 @@ module.exports = {
   name: "giveaway",
   description: "Crea un sorteo sencillo",
   usage: "<tiempo> <canal> <premio>",
-  execute(message, args) {
+  async execute(message, args) {
     if (!args[0]) return message.channel.send("Debes especificar un tiempo");
     if (
       !args[0].endsWith("d") &&
@@ -27,7 +27,7 @@ module.exports = {
       )
       .setTimestamp(Date.now() + ms(args[0]))
       .setColor("BLUE");
-    let m = channel.send(Embed);
+    let m = await channel.send(Embed);
     m.react("🎉");
     setTimeout(() => {
       if (m.reactions.cache.get("🎉").count <= 1) {
