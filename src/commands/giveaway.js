@@ -5,7 +5,6 @@ module.exports = {
   name: "giveaway",
   description: "Crea un sorteo sencillo",
   usage: "<tiempo> <canal> <premio>",
-  category: "fun",
   run: async (bot, message, args) => {
     if (!args[0]) return message.channel.send("Debes especificar un tiempo");
     if (
